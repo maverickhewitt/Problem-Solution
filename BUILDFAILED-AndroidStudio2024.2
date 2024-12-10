@@ -1,0 +1,53 @@
+This is the error when I add any dependencies in pubspec.yaml
+
+|
+V
+
+"Launching lib\main.dart on sdk gphone64 x86 64 in debug mode...
+Running Gradle task 'assembleDebug'...
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':path_provider_android:compileDebugJavaWithJavac'.
+> Could not resolve all files for configuration ':path_provider_android:androidJdkImage'.
+   > Failed to transform core-for-system-modules.jar to match attributes {artifactType=_internal_android_jdk_image, org.gradle.libraryelements=jar, org.gradle.usage=java-runtime}.
+      > Execution failed for JdkImageTransform: C:\Users\User\AppData\Local\Android\sdk\platforms\android-34\core-for-system-modules.jar.
+         > Error while executing process C:\Program Files\Android\Android Studio1\jbr\bin\jlink.exe with arguments {--module-path C:\Users\User\.gradle\caches\transforms-3\4a46fc89ed5f9adfe3afebf74eb8bfeb\transformed\output\temp\jmod --add-modules java.base --output C:\Users\User\.gradle\caches\transforms-3\4a46fc89ed5f9adfe3afebf74eb8bfeb\transformed\output\jdkImage --disable-plugin system-modules}
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 15s
+Error: Gradle task assembleDebug failed with exit code 1"
+
+So I solved it using this method
+
+/settings.gradle
+plugins {
+    id "com.android.application" version "8.3.2" apply false
+    id "org.jetbrains.kotlin.android" version "2.0.20" apply false
+
+/build.gradle
+android {
+    ndkVersion = "25.1.8937393"
+}
+
+compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlinOptions {
+    jvmTarget = 17
+}
+
+/gradle-wrapper.properties
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.10.2-all.zip
+
+
+this time i just use JDK23 which is the latest version. so basically i just need to change this setting to make it work ;)
+
