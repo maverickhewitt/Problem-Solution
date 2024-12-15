@@ -1,2 +1,6 @@
 Icon Apps goes blank even when you use the launcher.
 The solution is downgrade the version of flutter_launcher_icons because maybe their new update bug
+
+next solution is adding this code
+adaptive_icon_background: "#ffffff" # You can use a color or image for the background
+adaptive_icon_foreground: "assets/icon.png" # For adaptive icons on Android
